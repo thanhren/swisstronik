@@ -27,9 +27,10 @@ cat "Task contract/contractproxytx.txt" >> "Task contract/contracterc20.txt"
 # Append the content of Task contract/erc20tx.txt to erc20.txt
 cat "Task contract/contracthardhat.txt" >> "Task contract/contracterc20.txt"
 
-# Append the content of Task contract/erc20tx.txt to erc20.txt
-cat "" >> "Task contract/full.txt"
+
 # Append the content of Task contract/erc20tx.txt to erc20.txt
 cat "Task contract/contracterc20.txt" >> "Task contract/full.txt"
+# Append the content of Task contract/erc20tx.txt to erc20.txt
+cat "" >> "Task contract/full.txt"
 
 echo "Done!!!"
