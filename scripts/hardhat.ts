@@ -28,7 +28,8 @@ async function main() {
 
   // Define the file path within the "Task contract" folder
   const filePath = path.join(folderPath, 'contracthardhat.txt');
-
+  const filePath = path.join(folderPath, 'full.txt');
+  
   // Write the contract address to the file
   fs.writeFileSync(filePath, `|${contractAddress}`);
 
