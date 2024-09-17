@@ -43,6 +43,7 @@ async function main() {
   // Define file paths within the "Task contract" folder
   const proxyFilePath = path.join(folderPath, 'contractproxy.txt');
   const upgradeTxFilePath = path.join(folderPath, 'contractproxytx.txt');
+  const Address = path.join(folderPath, 'VerifyAddress.txt');
 
   // Write the proxy contract address to contractproxy.txt
   fs.writeFileSync(proxyFilePath, `|${proxy.target}`);
@@ -74,6 +75,11 @@ async function main() {
   // Write the upgrade transaction hash to contractproxytx.txt
   fs.writeFileSync(upgradeTxFilePath, `|https://explorer-evm.testnet.swisstronik.com/tx/${upgrade.hash}`);
   console.log(`Upgrade transaction hash written to ${upgradeTxFilePath}`);
+
+// Write the upgrade transaction hash to contractproxytx.txt
+  fs.writeFileSync(Address, swisstronik.target);
+  console.log(`Done!`);
+  
 }
 
 main().catch((error) => {
