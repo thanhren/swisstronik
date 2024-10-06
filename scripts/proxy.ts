@@ -37,7 +37,7 @@ async function main() {
   );
   await proxy.waitForDeployment();
   console.log(
-    `Proxy contract address: ${proxy.target} <- copy that for "the deployed proxy contract address"`
+    `Proxy contract address: ${proxy.target} "`
   );
 
   // Define file paths within the "Task contract" folder
@@ -46,7 +46,7 @@ async function main() {
   const Address = path.join(folderPath, 'VerifyAddress.txt');
 
   // Write the proxy contract address to contractproxy.txt
-  fs.writeFileSync(proxyFilePath, `|${proxy.target}`);
+  fs.writeFileSync(proxyFilePath, `|${swisstronik.target}`);
   console.log(`Proxy contract address written to ${proxyFilePath}`);
 
   // Deploy the second contract
