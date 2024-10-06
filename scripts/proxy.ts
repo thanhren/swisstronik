@@ -49,12 +49,10 @@ async function main() {
 
   // Write the proxy contract address to contractproxyaddress1.txt
   fs.writeFileSync(proxyaddress1Path, `|${swisstronik.target}`);
-  console.log(`Proxy contract address written to ${proxyaddress1Path}`);
-
+  
   // Write the upgrade transaction hash to contractproxy.txt
   fs.writeFileSync(contractproxy, `|${proxy.target}`);
-  console.log(`Proxy contract address written to Contactproxy.txt `);
-
+  
   // Deploy the second contract
   const Swisstronik2 = await ethers.getContractFactory("Swisstronik2");
   const swisstronik2 = await Swisstronik2.deploy();
@@ -63,8 +61,7 @@ async function main() {
 
   // Write the proxy contract address to contractproxyaddress2.txt
   fs.writeFileSync(proxyaddress2Path, `|${swisstronik2.target}`);
-  console.log(`Proxy contract address written to ${proxyaddress2Path}`);
-
+ 
   // Perform the upgrade
   const upgrade = await sendShieldedTransaction(
     owner,
@@ -84,7 +81,6 @@ async function main() {
 
   // Write the upgrade transaction hash to contractproxytx.txt
   fs.writeFileSync(upgradeTxFilePath, `|https://explorer-evm.testnet.swisstronik.com/tx/${upgrade.hash}`);
-  console.log(`Upgrade transaction hash written to ${upgradeTxFilePath}`);
   console.log(`Sucessfully!!! `);
 }
 
