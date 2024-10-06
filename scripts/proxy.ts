@@ -20,7 +20,7 @@ async function main() {
   const Swisstronik = await ethers.getContractFactory("Swisstronik");
   const swisstronik = await Swisstronik.deploy();
   await swisstronik.waitForDeployment();
-  console.log("Contract address 1 deployed to:", swisstronik.target);
+  console.log(`👉 Contract address 1 deployed to: ${swisstronik.target} 👈 Copy Contract address 1`);
 
   // Deploy the proxy admin
   const ProxyAdmin = await ethers.getContractFactory("ProxyAdmin");
@@ -37,23 +37,33 @@ async function main() {
   );
   await proxy.waitForDeployment();
   console.log(
-    `Proxy contract address: ${proxy.target} "`
+    `Proxy contract address: ${proxy.target} `
   );
 
   // Define file paths within the "Task contract" folder
-  const proxyFilePath = path.join(folderPath, 'contractproxy.txt');
+  const proxyaddress1Path = path.join(folderPath, 'contractproxyaddress1.txt');
+  const contractproxy = path.join(folderPath, 'contractproxy.txt');
+  const proxyaddress2Path = path.join(folderPath, 'contractproxyaddress2.txt');
   const upgradeTxFilePath = path.join(folderPath, 'contractproxytx.txt');
-  const Address = path.join(folderPath, 'VerifyAddress.txt');
+  
 
-  // Write the proxy contract address to contractproxy.txt
-  fs.writeFileSync(proxyFilePath, `|${swisstronik.target}`);
-  console.log(`Proxy contract address written to ${proxyFilePath}`);
+  // Write the proxy contract address to contractproxyaddress1.txt
+  fs.writeFileSync(proxyaddress1Path, `|${swisstronik.target}`);
+  console.log(`Proxy contract address written to ${proxyaddress1Path}`);
+
+  // Write the upgrade transaction hash to contractproxy.txt
+  fs.writeFileSync(contractproxy, `|${proxy.target}`);
+  console.log(`Proxy contract address written to Contactproxy.txt `);
 
   // Deploy the second contract
   const Swisstronik2 = await ethers.getContractFactory("Swisstronik2");
   const swisstronik2 = await Swisstronik2.deploy();
   await swisstronik2.waitForDeployment();
   console.log(`Contract address 2 deployed to: ${swisstronik2.target}`);
+
+  // Write the proxy contract address to contractproxyaddress2.txt
+  fs.writeFileSync(proxyaddress2Path, `|${swisstronik2.target}`);
+  console.log(`Proxy contract address written to ${proxyaddress2Path}`);
 
   // Perform the upgrade
   const upgrade = await sendShieldedTransaction(
@@ -69,17 +79,13 @@ async function main() {
   await upgrade.wait();
 
   console.log(
-    `Response: https://explorer-evm.testnet.swisstronik.com/tx/${upgrade.hash} <- copy that for "the link to the contract implementation replacement transaction"`
+    `👉 Response: https://explorer-evm.testnet.swisstronik.com/tx/${upgrade.hash} 👈 Copy transaction upgrade`
   );
 
   // Write the upgrade transaction hash to contractproxytx.txt
   fs.writeFileSync(upgradeTxFilePath, `|https://explorer-evm.testnet.swisstronik.com/tx/${upgrade.hash}`);
   console.log(`Upgrade transaction hash written to ${upgradeTxFilePath}`);
-
-// Write the upgrade transaction hash to contractproxytx.txt
-  fs.writeFileSync(Address, swisstronik.target);
-  console.log(`Done!`);
-  
+  console.log(`Sucessfully!!! `);
 }
 
 main().catch((error) => {
